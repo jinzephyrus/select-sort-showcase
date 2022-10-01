@@ -14,12 +14,4 @@ body {
   justify-content: center;
   align-items: center;
   text-align: center;
-  width: 800px;
-}
-
-.separator {
-  padding: 12px 6px 200px 6px;
-  margin: 0px 50px 0px;
-  border-left: 1px solid;
-  font: 0;
 }

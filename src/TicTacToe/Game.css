@@ -2,7 +2,8 @@ body {
   font: 14px "Century Gothic", Futura, sans-serif;
 }
 
-ol, ul {
+ol,
+ul {
   padding-left: 30px;
 }
 
@@ -31,7 +32,7 @@ ol, ul {
   width: 34px;
 }
 
-.square>.text-highlight {
+.square > .text-highlight {
   color: lightcoral;
 }
 
@@ -45,7 +46,10 @@ ol, ul {
 
 .game {
   display: flex;
+  justify-content: center;
+  width: 300px;
   flex-direction: row;
+  margin: 10px;
 }
 
 .game-info {
