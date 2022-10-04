@@ -15,21 +15,21 @@ export default class Board extends React.Component {
 
   render() {
     const board = (row, col) => {
-      let list = [];
+      const list = [];
       const wayToWin = this.props.wayToWin;
 
       for (let i = 0; i < row; i++) {
-        let rowList = [];
+        const rowList = [];
 
         for (let j = 0; j < col; j++) {
-          let idx = i * 3 + j;
+          const idx = i * 3 + j;
           let highlightArray;
 
           if (wayToWin.length !== 0) {
             highlightArray = wayToWin.map((val) => val === idx);
           }
 
-          let highlight =
+          const highlight =
             highlightArray === undefined
               ? false
               : highlightArray.find((val) => val);

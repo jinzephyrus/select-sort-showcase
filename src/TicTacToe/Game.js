@@ -73,7 +73,7 @@ export default class Game extends React.Component {
     this.setState({
       history: history.concat([
         {
-          squares: squares,
+          squares,
           stepClick: i,
         },
       ]),
@@ -114,7 +114,7 @@ export default class Game extends React.Component {
       let desc;
 
       if (idx) {
-        let axis = clickToAxis(array[idx].stepClick);
+        const axis = clickToAxis(array[idx].stepClick);
 
         desc = "#" + idx + " - (" + axis.x + ", " + axis.y + ")";
       } else {
