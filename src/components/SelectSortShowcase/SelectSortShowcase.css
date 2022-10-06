@@ -1,0 +1,9 @@
+.panel {
+  background: white;
+  padding: 15px;
+  border-radius: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}

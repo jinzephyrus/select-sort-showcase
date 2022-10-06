@@ -5,17 +5,3 @@ body {
   justify-content: center;
   min-height: 100vh;
 }
-
-.panel {
-  background: white;
-  padding: 30px;
-  border-radius: 16px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.text-display {
-  margin: 20px;
-}

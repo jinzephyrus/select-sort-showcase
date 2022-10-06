@@ -6,14 +6,12 @@ import ReactDOM from "react-dom/client";
 
 import "./index.css";
 
-import Divider from "@mui/material/Divider";
-import Grid from "@mui/material/Grid";
-import TextDisplay from "./components/TextDisplay";
-import ArrayChart from "./components/ArrayChart";
+import SelectSortShowcase from "./components/SelectSortShowcase/SelectSortShowcase";
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
-  <div>
+const data = [1, 4, 3, 2, 9, 7, 5, 6];
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <>
     {/* 字体 */}
     <link
       rel='stylesheet'
@@ -26,15 +24,7 @@ root.render(
     />
     {/* 主页面 */}
     <React.StrictMode>
-      <Grid className='panel' container spacing={1}>
-        <Grid item xs>
-          <TextDisplay className='text-display' />
-        </Grid>
-        <Divider orientation='vertical' flexItem />
-        <Grid item xs>
-          <ArrayChart />
-        </Grid>
-      </Grid>
+      <SelectSortShowcase data={data} />
     </React.StrictMode>
-  </div>
+  </>
 );

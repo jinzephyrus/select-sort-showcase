@@ -5,19 +5,21 @@ import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/theme-github";
 import "ace-builds/src-noconflict/ext-language_tools";
 
+import "./TextDisplay.css";
+
 const selectSortText = `const selectSort = (list) => {
   let temp, minIdx;
   const sorted = list.slice();
 
-  for (let i = 0; i < sorted.length; i++) {
+  for (var i = 0; i < sorted.length; i++) {
     minIdx = i;
-    // visualize once
+    // 遍歷下一個 i
 
-    for (let j = i + 1; j < sorted.length; j++) {
-      // visualize once
+    for (var j = i + 1; j < sorted.length; j++) {
+      // 遍歷下一個 j 並進行比較
       if (sorted[i] > sorted[j]) {
         minIdx = j;
-        // visualize once
+        // 標記最小值的索引
       }
     }
 
@@ -25,12 +27,11 @@ const selectSortText = `const selectSort = (list) => {
       temp = sorted[i];
       sorted[i] = sorted[j];
       sorted[j] = temp;
-      // visualize once
+      // 將 i 的值與最小值替換
     }
-    // visualize once
   }
 
-  // show result here
+  // 顯示結果
   return sorted;
 };
 `;
@@ -39,7 +40,7 @@ const onChange = (newValue) => {
   console.log("change", newValue);
 };
 
-export default class TextDisplay extends Component {
+class TextDisplay extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -54,7 +55,7 @@ export default class TextDisplay extends Component {
         editor,
       },
       () => {
-        this.moveCursor(12);
+        this.moveCursor(7);
       }
     );
   }
@@ -66,13 +67,13 @@ export default class TextDisplay extends Component {
   render() {
     return (
       <AceEditor
+        className='ace'
         mode='javascript'
         theme='github'
         fontSize={15}
         onChange={onChange}
         onLoad={(editor) => this.onLoad(editor)}
         // 不允许修改指针位置
-        style={{ pointerEvents: "none" }}
         value={selectSortText}
         readOnly={true}
         name='UNIQUE_ID_OF_DIV'
@@ -81,3 +82,5 @@ export default class TextDisplay extends Component {
     );
   }
 }
+
+export default TextDisplay;

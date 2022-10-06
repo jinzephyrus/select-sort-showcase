@@ -14,12 +14,12 @@
 
 ## 组件:
 
-- Controller: 算法进度控制器
+- PlayerControl: 算法进度控制器
 - TextDisplay: 算法代码显示器
 - ArrayChart: 数组图表
 
 #
 
-测试项目请在终端中输入 `npm start`
+测试项目 - `npm start`
 
-构建项目请输入 `npm run build`
+构建项目 - `npm run build`
