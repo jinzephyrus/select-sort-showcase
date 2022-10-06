@@ -6,7 +6,7 @@ import Divider from "@mui/material/Divider";
 import Grid from "@mui/material/Grid";
 import TextDisplay from "../TextDisplay/TextDisplay";
 import ArrayChart from "../ArrayChart/ArrayChart";
-import PlayerControl from "../PlayerControl";
+import PlayerControl from "../PlayerControl/PlayerControl";
 
 export default class SelectSortShowcase extends React.Component {
   constructor(props) {
@@ -14,6 +14,7 @@ export default class SelectSortShowcase extends React.Component {
     this.state = {
       textDisplay: React.createRef(),
       arrayChart: React.createRef(),
+      playerControl: React.createRef(),
     };
   }
 
@@ -28,6 +29,7 @@ export default class SelectSortShowcase extends React.Component {
           <ArrayChart ref={this.state.arrayChart} array={this.props.data} />
           <PlayerControl
             array={this.props.data}
+            ref={this.state.playerControl}
             textDisplayRef={this.state.textDisplay}
             arrayChartRef={this.state.arrayChart}
           />

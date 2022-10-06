@@ -4,8 +4,32 @@ import * as d3 from "d3";
 import * as shared from "./shared";
 
 export default class IndexIndicator extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      dataLen: this.props.dataLen,
+    };
+  }
+
   componentDidMount() {
     this.init();
+  }
+
+  reset(dataLen) {
+    this.setState(
+      {
+        dataLen,
+      },
+      () => {
+        const { svg, empty } = shared.svgCheck(".idx-indicator svg");
+
+        if (!empty) {
+          svg.remove();
+        }
+
+        this.init();
+      }
+    );
   }
 
   init() {
@@ -14,7 +38,7 @@ export default class IndexIndicator extends React.Component {
     const width = shared.componentWidth;
     const height = 10;
     const barPadding = shared.componentBarPadding;
-    const dataLen = this.props.dataLen;
+    const dataLen = this.state.dataLen;
 
     if (empty) {
       svg = d3

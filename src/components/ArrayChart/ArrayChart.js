@@ -6,17 +6,18 @@ import * as d3 from "d3";
 import * as shared from "./shared";
 import IndexIndicator from "./IndexIndicator";
 
+const dummy = () => null;
+
 const chartProps = (data) => {
   const height = 200;
+  const maxValue = d3.max(data);
 
   return {
     width: shared.componentWidth,
     height,
     barPadding: shared.componentBarPadding,
-    yScale: d3
-      .scaleLinear()
-      .domain([0, d3.max(data)])
-      .range([0, height]),
+    maxValue,
+    yScale: d3.scaleLinear().domain([0, maxValue]).range([0, height]),
   };
 };
 
@@ -26,7 +27,7 @@ const applyRectAttr = (selection, props, arrayLen) => {
     .attr("y", (d) => props.height - props.yScale(d))
     .attr("width", props.width / arrayLen - props.barPadding)
     .attr("height", (d) => props.yScale(d))
-    .attr("fill", (d) => "rgb(136, 196, " + d * 100 + ")");
+    .attr("fill", (d) => "rgb(136, 196, " + (d / props.maxValue) * 255 + ")");
 };
 
 const applyTextAttr = (selection, props, arrayLen) => {
@@ -101,13 +102,30 @@ export default class ArrayChart extends React.Component {
     });
   }
 
+  reset(newData) {
+    this.state.svg.remove();
+
+    this.setState(
+      {
+        selected: { i: -1, j: -1 },
+        tagged: -1,
+        svg: null,
+        data: newData,
+      },
+      () => {
+        this.state.indicatorRef.current.reset(newData.length);
+        this.drawChart();
+      }
+    );
+  }
+
   initIndicator() {
     this.state.indicatorRef.current.init();
   }
 
   // 设置指示器位置
   // still need to be refactored
-  setIndicator(i, j) {
+  setIndicator(i, j, callback = dummy) {
     if (i >= this.state.data.length || i < -1) {
       return;
     }
@@ -132,34 +150,43 @@ export default class ArrayChart extends React.Component {
       );
     }
 
-    this.setState({
-      selected: { i, j },
-    });
+    this.setState(
+      {
+        selected: { i, j },
+      },
+      () => {
+        if (i !== this.state.tagged) {
+          this.state.indicatorRef.current.colorize(
+            i,
+            shared.indicatorColor.selected
+          );
+        }
 
-    if (i !== this.state.tagged) {
-      this.state.indicatorRef.current.colorize(
-        i,
-        shared.indicatorColor.selected
-      );
-    }
+        if (j !== this.state.tagged) {
+          this.state.indicatorRef.current.colorize(
+            j,
+            shared.indicatorColor.selected
+          );
+        }
 
-    if (j !== this.state.tagged) {
-      this.state.indicatorRef.current.colorize(
-        j,
-        shared.indicatorColor.selected
-      );
-    }
+        callback();
+      }
+    );
   }
 
   // 标记选定索引
-  tagIndicator(index) {
+  tagIndicator(index, callback = dummy) {
     if (isNaN(index) || index >= this.state.data.length || index < -1) {
       return;
     }
 
     const lastTagged = this.state.tagged;
 
-    if (lastTagged === index) {
+    if (
+      lastTagged === index ||
+      lastTagged === this.state.selected.i ||
+      lastTagged === this.state.selected.j
+    ) {
       this.state.indicatorRef.current.colorize(
         lastTagged,
         shared.indicatorColor.selected
@@ -181,9 +208,14 @@ export default class ArrayChart extends React.Component {
         this.state.indicatorRef.current.colorize(
           index,
           shouldUntag
-            ? shared.indicatorColor.selected
+            ? this.state.tagged === this.state.selected.i ||
+              this.state.tagged === this.state.selected.j
+              ? shared.indicatorColor.selected
+              : shared.indicatorColor.default
             : shared.indicatorColor.tagged
         );
+
+        callback();
       }
     );
   }

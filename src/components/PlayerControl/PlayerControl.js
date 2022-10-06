@@ -1,7 +1,10 @@
 import { FastForward, FastRewind, Pause, PlayArrow } from "@mui/icons-material";
-import { IconButton, Slider } from "@mui/material";
+import { IconButton, Slider, Stack } from "@mui/material";
 import React, { Component } from "react";
-import resolveSelectSort from "../core/resolveSelectSort";
+import resolveSelectSort from "../../core/resolveSelectSort";
+import breakpoint from "../TextDisplay/shared";
+
+import "./PlayerControl.css";
 
 const dummy = () => null;
 
@@ -28,6 +31,21 @@ export default class PlayerControl extends Component {
     });
   }
 
+  reset(newData) {
+    this.setState(
+      {
+        paused: true,
+        currentStep: 0,
+        originalArray: this.props.array,
+        steps: resolveSelectSort(newData),
+      },
+      () => {
+        this.state.arrayChart.current.reset(newData);
+        this.state.textDisplay.current.moveCursor(breakpoint.begin);
+      }
+    );
+  }
+
   componentDidMount() {
     this.initializeAlgorithmSteps();
   }
@@ -36,14 +54,14 @@ export default class PlayerControl extends Component {
     // TODO
     const step = this.state.steps[this.state.currentStep];
 
-    this.state.arrayChart.current.setIndicator(step.iIndex, step.jIndex);
-
-    if (
-      this.state.arrayChart.current.state.tagged !== step.taggedIndex ||
-      step.taggedIndex === -1
-    ) {
-      this.state.arrayChart.current.tagIndicator(step.taggedIndex);
-    }
+    this.state.arrayChart.current.setIndicator(step.iIndex, step.jIndex, () => {
+      if (
+        this.state.arrayChart.current.state.tagged !== step.taggedIndex ||
+        step.taggedIndex === -1
+      ) {
+        this.state.arrayChart.current.tagIndicator(step.taggedIndex);
+      }
+    });
 
     this.state.textDisplay.current.moveCursor(step.breakpoint);
 
@@ -125,18 +143,16 @@ export default class PlayerControl extends Component {
   }
 
   onStepChanging(_, newValue) {
+    if (!this.state.paused) {
+      this.onPlayButtonClick();
+    }
+
     this.toStep(newValue);
   }
 
   render() {
     return (
-      <>
-        <Slider
-          value={this.state.currentStep}
-          onChange={this.onStepChanging.bind(this)}
-          max={this.state.steps.length - 1}
-          valueLabelDisplay='auto'
-        />
+      <Stack spacing={1} direction='row' className='stack'>
         <IconButton
           color='primary'
           component='label'
@@ -158,7 +174,14 @@ export default class PlayerControl extends Component {
         >
           <FastForward />
         </IconButton>
-      </>
+        <Slider
+          className='slider'
+          value={this.state.currentStep}
+          onChange={this.onStepChanging.bind(this)}
+          max={this.state.steps.length - 1}
+          valueLabelDisplay='auto'
+        />
+      </Stack>
     );
   }
 }

@@ -5,3 +5,28 @@ body {
   justify-content: center;
   min-height: 100vh;
 }
+
+h1 {
+  text-shadow: #000 0px 0px 3px;
+  color: aliceblue;
+}
+
+.insert-array {
+  display: flex;
+  align-items: center;
+  margin-left: -16px;
+}
+
+.input {
+  float: left;
+  margin-left: 10px;
+  width: 300px
+}
+
+.str {
+  float: left;
+}
+
+.title {
+  margin-left: auto;
+}

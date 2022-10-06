@@ -13,13 +13,13 @@ const selectSortText = `const selectSort = (list) => {
 
   for (var i = 0; i < sorted.length; i++) {
     minIdx = i;
-    // 遍歷下一個 i
+    // 遍历下一个 i
 
     for (var j = i + 1; j < sorted.length; j++) {
-      // 遍歷下一個 j 並進行比較
+      // 遍历下一个 j 并进行比较
       if (sorted[i] > sorted[j]) {
         minIdx = j;
-        // 標記最小值的索引
+        // 标记最小值
       }
     }
 
@@ -27,11 +27,11 @@ const selectSortText = `const selectSort = (list) => {
       temp = sorted[i];
       sorted[i] = sorted[j];
       sorted[j] = temp;
-      // 將 i 的值與最小值替換
+      // 将 i 的值与最小值替换
     }
   }
 
-  // 顯示結果
+  // 显示结果
   return sorted;
 };
 `;
