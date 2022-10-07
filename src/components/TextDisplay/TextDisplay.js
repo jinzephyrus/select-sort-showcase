@@ -56,6 +56,7 @@ class TextDisplay extends Component {
       },
       () => {
         this.moveCursor(7);
+        this.state.editor.setAutoScrollEditorIntoView(true);
       }
     );
   }
@@ -70,6 +71,7 @@ class TextDisplay extends Component {
         className='ace'
         mode='javascript'
         theme='github'
+        height='550px'
         fontSize={15}
         onChange={onChange}
         onLoad={(editor) => this.onLoad(editor)}
