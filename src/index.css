@@ -5,23 +5,3 @@ body {
   justify-content: center;
   min-height: 100vh;
 }
-
-.insert-array {
-  display: flex;
-  align-items: center;
-  margin-left: -16px;
-}
-
-.input {
-  float: left;
-  margin-left: 10px;
-  width: 300px
-}
-
-.str {
-  float: left;
-}
-
-.title {
-  margin-left: auto;
-}

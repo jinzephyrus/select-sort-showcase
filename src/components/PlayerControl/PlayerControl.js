@@ -4,8 +4,6 @@ import React, { Component } from "react";
 import resolveSelectSort from "../../core/resolveSelectSort";
 import breakpoint from "../TextDisplay/shared";
 
-import "./PlayerControl.css";
-
 const dummy = () => null;
 
 export default class PlayerControl extends Component {
@@ -26,7 +24,7 @@ export default class PlayerControl extends Component {
     const steps = resolveSelectSort(this.state.originalArray);
 
     this.setState({ steps }, () => {
-      this.state.arrayChart.current.initIndicator();
+      this.state.arrayChart.current.state.indicatorRef.current.init();
       this.state.arrayChart.current.setData(this.state.originalArray);
     });
   }
@@ -152,7 +150,15 @@ export default class PlayerControl extends Component {
 
   render() {
     return (
-      <Stack spacing={1} direction='row' className='stack'>
+      <Stack
+        spacing={1}
+        direction='row'
+        sx={{
+          textAlign: "center",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
         <IconButton
           color='primary'
           component='label'

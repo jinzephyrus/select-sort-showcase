@@ -5,8 +5,6 @@ import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/theme-github";
 import "ace-builds/src-noconflict/ext-language_tools";
 
-import "./TextDisplay.css";
-
 const selectSortText = `const selectSort = (list) => {
   let temp, minIdx;
   const sorted = list.slice();
@@ -68,18 +66,17 @@ class TextDisplay extends Component {
   render() {
     return (
       <AceEditor
-        className='ace'
         mode='javascript'
         theme='github'
         height='550px'
         fontSize={15}
         onChange={onChange}
         onLoad={(editor) => this.onLoad(editor)}
-        // 不允许修改指针位置
         value={selectSortText}
         readOnly={true}
         name='UNIQUE_ID_OF_DIV'
         editorProps={{ $blockScrolling: true }}
+        style={{ pointerEvents: "none" }}
       />
     );
   }

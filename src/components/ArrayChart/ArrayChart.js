@@ -119,10 +119,6 @@ export default class ArrayChart extends React.Component {
     );
   }
 
-  initIndicator() {
-    this.state.indicatorRef.current.init();
-  }
-
   // 设置指示器位置
   // still need to be refactored
   setIndicator(i, j, callback = dummy) {
@@ -222,13 +218,13 @@ export default class ArrayChart extends React.Component {
 
   render() {
     return (
-      <div>
+      <>
         <section className='main' />
         <IndexIndicator
           dataLen={this.state.data.length}
           ref={this.state.indicatorRef}
         />
-      </div>
+      </>
     );
   }
 }

@@ -6,6 +6,7 @@ import {
   Typography,
   styled,
   InputBase,
+  Tooltip,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useSnackbar } from "notistack";
@@ -19,7 +20,7 @@ const Search = styled("div")(({ theme }) => ({
   "&:hover": {
     backgroundColor: alpha(theme.palette.common.white, 0.25),
   },
-  marginRight: theme.spacing(2),
+  //   marginRight: theme.spacing(2),
   marginLeft: 0,
   width: "100%",
   [theme.breakpoints.up("sm")]: {
@@ -79,6 +80,14 @@ const Header = (props) => {
             return num;
           });
 
+    if (nums.length <= 2) {
+      enqueueSnackbar("该数组元素过少.", {
+        variant: "error",
+      });
+
+      return;
+    }
+
     props.apply(nums);
   };
 
@@ -90,7 +99,7 @@ const Header = (props) => {
     try {
       applyData(e.target.value);
     } catch {
-      enqueueSnackbar("似乎传进去了一些奇怪的东西...", {
+      enqueueSnackbar("该字符串无法转换为数组.", {
         variant: "error",
       });
     }
@@ -99,15 +108,18 @@ const Header = (props) => {
   return (
     <AppBar component='nav'>
       <Toolbar>
-        <IconButton
-          size='large'
-          edge='start'
-          color='inherit'
-          aria-label='menu'
-          sx={{ mr: 2 }}
-        >
-          <MenuIcon />
-        </IconButton>
+        <Tooltip title='?'>
+          <IconButton
+            size='large'
+            edge='start'
+            color='inherit'
+            aria-label='menu'
+            sx={{ mr: 2 }}
+            onClick={() => enqueueSnackbar("没了")}
+          >
+            <MenuIcon />
+          </IconButton>
+        </Tooltip>
         <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
           选择排序 | 算法演示
         </Typography>
