@@ -6,11 +6,6 @@ body {
   min-height: 100vh;
 }
 
-h1 {
-  text-shadow: #000 0px 0px 3px;
-  color: aliceblue;
-}
-
 .insert-array {
   display: flex;
   align-items: center;
