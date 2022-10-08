@@ -25,7 +25,13 @@ export default class SelectSortShowcase extends React.Component {
       <Box sx={{ display: "flex" }}>
         <SnackbarProvider maxSnack={5} autoHideDuration={3000}>
           <Header
-            apply={(nums) => this.state.playerControl.current.reset(nums)}
+            apply={(nums) => {
+              if (!this.state.playerControl.current.state.paused) {
+                this.state.playerControl.current.onPlayButtonClick();
+              }
+
+              this.state.playerControl.current.reset(nums);
+            }}
             array={this.state.defaultData}
           />
           <Card>

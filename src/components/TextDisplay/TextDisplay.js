@@ -9,11 +9,11 @@ const selectSortText = `const selectSort = (list) => {
   let temp, minIdx;
   const sorted = list.slice();
 
-  for (var i = 0; i < sorted.length; i++) {
+  for (let i = 0; i < sorted.length; i++) {
     minIdx = i;
     // 遍历下一个 i
 
-    for (var j = i + 1; j < sorted.length; j++) {
+    for (let j = i + 1; j < sorted.length; j++) {
       // 遍历下一个 j 并进行比较
       if (sorted[i] > sorted[j]) {
         minIdx = j;
