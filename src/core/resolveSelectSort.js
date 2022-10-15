@@ -1,4 +1,4 @@
-import breakpoint from "../components/TextDisplay/shared.js";
+import { breakpoint } from "../components/TextDisplay/shared.js";
 
 const Step = {
   id: 0,
@@ -13,7 +13,7 @@ const mergeArrayIntoStep = (step, array) => {
 };
 
 // the function should be based on select sort algorithm
-const resolveSelectSort = (array) => {
+export const resolveSelectSort = (array) => {
   let temp;
   let minIdx;
   let stepId = 0;
@@ -85,5 +85,3 @@ const resolveSelectSort = (array) => {
   steps.push(deepClone(currentStep));
   return steps;
 };
-
-export default resolveSelectSort;

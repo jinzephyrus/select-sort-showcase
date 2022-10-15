@@ -1,4 +1,4 @@
-const breakpoint = {
+export const breakpoint = {
   begin: 1,
   initialize: 7,
   nextNumber: 10,
@@ -6,5 +6,3 @@ const breakpoint = {
   switchPlace: 21,
   showResult: 25,
 };
-
-export default breakpoint;

@@ -6,10 +6,16 @@ import ReactDOM from "react-dom/client";
 
 import "./index.css";
 
-import SelectSortShowcase from "./components/SelectSortShowcase/SelectSortShowcase";
+import { SelectSortShowcase } from "./components/SelectSortShowcase/SelectSortShowcase";
+
+if (document.documentElement.clientWidth < 530) {
+  document
+    .querySelector("meta[name=viewport]")
+    .setAttribute("content", "width=device-width, initial-scale=0.6");
+}
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <>
+  <React.StrictMode>
     {/* 字体 */}
     <link
       rel='stylesheet'
@@ -21,8 +27,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       href='https://fonts.googleapis.com/icon?family=Material+Icons'
     />
     {/* 主页面 */}
-    <React.StrictMode>
+    <section className='container'>
       <SelectSortShowcase />
-    </React.StrictMode>
-  </>
+    </section>
+  </React.StrictMode>
 );

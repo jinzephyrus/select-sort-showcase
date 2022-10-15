@@ -1,17 +1,8 @@
 import React from "react";
-import {
-  AppBar,
-  IconButton,
-  Toolbar,
-  Typography,
-  styled,
-  InputBase,
-  Tooltip,
-} from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
+import { AppBar, Toolbar, Typography, styled, InputBase } from "@mui/material";
 import { useSnackbar } from "notistack";
 import { alpha } from "@mui/system";
-import { List } from "@mui/icons-material";
+import { List, Queue } from "@mui/icons-material";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -108,18 +99,7 @@ const Header = (props) => {
   return (
     <AppBar component='nav'>
       <Toolbar>
-        <Tooltip title='?'>
-          <IconButton
-            size='large'
-            edge='start'
-            color='inherit'
-            aria-label='menu'
-            sx={{ mr: 2 }}
-            onClick={() => enqueueSnackbar("没了")}
-          >
-            <MenuIcon />
-          </IconButton>
-        </Tooltip>
+        <Queue sx={{ mr: 1 }} />
         <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
           选择排序 | 算法演示
         </Typography>

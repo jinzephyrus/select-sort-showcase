@@ -1,8 +1,8 @@
 import { FastForward, FastRewind, Pause, PlayArrow } from "@mui/icons-material";
 import { IconButton, Slider, Stack } from "@mui/material";
 import React, { Component } from "react";
-import resolveSelectSort from "../../core/resolveSelectSort";
-import breakpoint from "../TextDisplay/shared";
+import { resolveSelectSort } from "../../core/resolveSelectSort";
+import { breakpoint } from "../TextDisplay/shared";
 
 const dummy = () => null;
 
@@ -49,7 +49,6 @@ export default class PlayerControl extends Component {
   }
 
   updateComponents() {
-    // TODO
     const step = this.state.steps[this.state.currentStep];
 
     this.state.arrayChart.current.setIndicator(step.iIndex, step.jIndex, () => {

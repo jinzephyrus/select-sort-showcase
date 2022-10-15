@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 
 import TextDisplay from "../TextDisplay/TextDisplay";
 import ArrayChart from "../ArrayChart/ArrayChart";
@@ -9,63 +9,98 @@ import { SnackbarProvider } from "notistack";
 import { Box } from "@mui/system";
 import Header from "../Header/Header";
 
-export default class SelectSortShowcase extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      textDisplay: React.createRef(),
-      arrayChart: React.createRef(),
-      playerControl: React.createRef(),
-      defaultData: [1, 4, 3, 2, 9, 7, 5, 6],
-    };
-  }
+const useWindowSize = () => {
+  const [size, setSize] = useState({
+    width: 0,
+    height: 0,
+  });
 
-  render() {
-    return (
-      <Box sx={{ display: "flex" }}>
-        <SnackbarProvider maxSnack={5} autoHideDuration={3000}>
-          <Header
-            apply={(nums) => {
-              if (!this.state.playerControl.current.state.paused) {
-                this.state.playerControl.current.onPlayButtonClick();
-              }
+  useLayoutEffect(() => {
+    const updateSize = () =>
+      setSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
 
-              this.state.playerControl.current.reset(nums);
+    window.addEventListener("resize", updateSize);
+
+    updateSize();
+
+    return () => window.removeEventListener("resize", updateSize);
+  }, []);
+
+  return size;
+};
+
+export const SelectSortShowcase = () => {
+  const textDisplay = useRef();
+  const arrayChart = useRef();
+  const playerControl = useRef();
+  const defaultData = [1, 4, 3, 2, 9, 7, 5, 6];
+  const window = useWindowSize();
+  const cardSize = 1080;
+
+  const applyData = (nums) => {
+    if (!playerControl.current.state.paused) {
+      playerControl.current.onPlayButtonClick();
+    }
+
+    playerControl.current.reset(nums);
+  };
+
+  const isVerticalScreen = () => window.width <= cardSize;
+
+  const getDivider = () => {
+    if (!isVerticalScreen()) {
+      return <Divider orientation='vertical' flexItem />;
+    }
+
+    return <Divider orientation='horizontal' flexItem />;
+  };
+
+  return (
+    <Box sx={{ display: "flex", mt: !isVerticalScreen() ? "-16px" : "96px" }}>
+      <SnackbarProvider maxSnack={5} autoHideDuration={3000}>
+        <Header apply={applyData} array={defaultData} />
+        <Card sx={{ borderRadius: "16px" }}>
+          <Grid
+            container
+            spacing={!isVerticalScreen() ? 2 : 0}
+            direction={!isVerticalScreen() ? "row" : "column-reverse"}
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              textAlign: "center",
             }}
-            array={this.state.defaultData}
-          />
-          <Card>
+          >
+            <Grid item xs sx={{ width: "516px !important" }}>
+              <TextDisplay ref={textDisplay} />
+            </Grid>
+            {getDivider()}
             <Grid
-              container
-              spacing={2}
+              item
+              xs
               sx={{
-                borderRadius: "16px",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                textAlign: "center",
+                mr: !isVerticalScreen() ? "16px" : "0",
+                mt: "16px",
+                // pl: !isVerticalScreen ? "0" : "16px",
+                // pr: !isVerticalScreen ? "0" : "16px",
               }}
             >
-              <Grid item xs>
-                <TextDisplay ref={this.state.textDisplay} />
-              </Grid>
-              <Divider orientation='vertical' flexItem />
-              <Grid item xs sx={{ mr: "16px" }}>
-                <ArrayChart
-                  ref={this.state.arrayChart}
-                  array={this.state.defaultData}
-                />
+              <Box sx={{ p: 1 }}>
+                <ArrayChart ref={arrayChart} array={defaultData} />
                 <PlayerControl
-                  array={this.state.defaultData}
-                  ref={this.state.playerControl}
-                  textDisplayRef={this.state.textDisplay}
-                  arrayChartRef={this.state.arrayChart}
+                  array={defaultData}
+                  ref={playerControl}
+                  textDisplayRef={textDisplay}
+                  arrayChartRef={arrayChart}
                 />
-              </Grid>
+              </Box>
             </Grid>
-          </Card>
-        </SnackbarProvider>
-      </Box>
-    );
-  }
-}
+          </Grid>
+        </Card>
+      </SnackbarProvider>
+    </Box>
+  );
+};
