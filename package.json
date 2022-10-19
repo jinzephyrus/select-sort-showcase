@@ -7,9 +7,11 @@
     "@emotion/styled": "^11.10.4",
     "@mui/icons-material": "^5.10.6",
     "@mui/material": "^5.10.7",
+    "@mui/system": "^5.10.10",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "ace-builds": "^1.12.3",
     "babel-eslint": "^10.1.0",
     "d3": "^7.6.1",
     "notistack": "^2.0.5",
@@ -20,7 +22,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "set DISABLE_ESLINT_PLUGIN=false && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -44,6 +46,10 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": ">=7.0.0 <8.0.0",
+    "@babel/plugin-syntax-flow": "^7.14.5",
+    "@babel/plugin-transform-react-jsx": "^7.14.9",
+    "@testing-library/dom": ">=7.21.4",
     "eslint": "^8.24.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-standard": "^17.0.0",
@@ -51,7 +57,8 @@
     "eslint-plugin-n": "^15.3.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-promise": "^6.0.1",
-    "eslint-plugin-react": "^7.31.8",
-    "prettier": "2.7.1"
+    "eslint-plugin-react": "^7.31.10",
+    "prettier": "2.7.1",
+    "typescript": ">=3.2.1 <4.0.0 || >=4.0.0 <5.0.0"
   }
 }

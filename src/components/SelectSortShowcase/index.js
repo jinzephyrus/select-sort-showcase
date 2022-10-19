@@ -1,13 +1,13 @@
 import React, { useLayoutEffect, useRef, useState } from "react";
 
-import TextDisplay from "../TextDisplay/TextDisplay";
-import ArrayChart from "../ArrayChart/ArrayChart";
-import PlayerControl from "../PlayerControl/PlayerControl";
+import TextDisplay from "../TextDisplay";
+import ArrayChart from "../ArrayChart";
+import PlayerControl from "../PlayerControl";
 
 import { Card, Divider, Grid } from "@mui/material";
 import { SnackbarProvider } from "notistack";
 import { Box } from "@mui/system";
-import Header from "../Header/Header";
+import Header from "../Header";
 
 const useWindowSize = () => {
   const [size, setSize] = useState({

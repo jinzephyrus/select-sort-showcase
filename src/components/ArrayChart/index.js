@@ -1,6 +1,6 @@
 import React from "react";
 
-import "./ArrayChart.css";
+import "./index.css";
 
 import * as d3 from "d3";
 import * as shared from "./shared";

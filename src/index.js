@@ -1,12 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-
-// 井字棋游戏, 用于测试页面布局
-// import Game from "./TicTacToe/Game";
-
 import "./index.css";
-
-import { SelectSortShowcase } from "./components/SelectSortShowcase/SelectSortShowcase";
+import { SelectSortShowcase } from "./components/SelectSortShowcase";
 
 if (document.documentElement.clientWidth < 530) {
   document
