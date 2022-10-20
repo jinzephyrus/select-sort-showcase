@@ -15,7 +15,7 @@ const selectSortText = `const selectSort = (list) => {
 
     for (let j = i + 1; j < sorted.length; j++) {
       // 遍历下一个 j 并进行比较
-      if (sorted[i] > sorted[j]) {
+      if (sorted[minIdx] > sorted[j]) {
         minIdx = j;
         // 标记最小值
       }
@@ -23,8 +23,8 @@ const selectSortText = `const selectSort = (list) => {
 
     if (minIdx !== i) {
       temp = sorted[i];
-      sorted[i] = sorted[j];
-      sorted[j] = temp;
+      sorted[i] = sorted[minIdx];
+      sorted[minIdx] = temp;
       // 将 i 的值与最小值替换
     }
   }
