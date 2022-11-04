@@ -6,8 +6,16 @@ import * as d3 from "d3";
 import * as shared from "./shared";
 import IndexIndicator from "./IndexIndicator";
 
+/**
+ * 空函数
+ */
 const dummy = () => null;
 
+/**
+ * 获取图表各类属性
+ * @param data 数组
+ * @return 图表属性
+ */
 const chartProps = (data) => {
   const height = 200;
   const maxValue = d3.max(data);
@@ -21,6 +29,12 @@ const chartProps = (data) => {
   };
 };
 
+/**
+ * 应用矩形图形属性
+ * @param selection SVG 选择器
+ * @param props 图表属性
+ * @param arrayLen 数组长度
+ */
 const applyRectAttr = (selection, props, arrayLen) => {
   selection
     .attr("x", (_, i) => i * (props.width / arrayLen))
@@ -30,6 +44,12 @@ const applyRectAttr = (selection, props, arrayLen) => {
     .attr("fill", (d) => "rgb(136, 196, " + (d / props.maxValue) * 255 + ")");
 };
 
+/**
+ * 应用文字图形属性
+ * @param selection SVG 选择器
+ * @param props 图表属性
+ * @param arrayLen 数组长度
+ */
 const applyTextAttr = (selection, props, arrayLen) => {
   selection
     .text((d) => d)
@@ -39,7 +59,10 @@ const applyTextAttr = (selection, props, arrayLen) => {
     .attr("fill", "white");
 };
 
-// https://codepen.io/Jamiltz/pen/kQdEMN
+/**
+ * 数组图表部件
+ * Credit: https://codepen.io/Jamiltz/pen/kQdEMN
+ */
 export default class ArrayChart extends React.Component {
   constructor(props) {
     super(props);
@@ -56,6 +79,11 @@ export default class ArrayChart extends React.Component {
     this.drawChart();
   }
 
+  /**
+   * 更新数组图表
+   *
+   * @param array 数组
+   */
   setData(array) {
     this.setState({
       data: array,
@@ -72,7 +100,9 @@ export default class ArrayChart extends React.Component {
     applyTextAttr(texts.transition(), props, array.length);
   }
 
-  // 渲染图表
+  /**
+   * 渲染图表
+   */
   drawChart() {
     let { svg, empty } = shared.svgCheck(".main svg");
 
@@ -102,6 +132,11 @@ export default class ArrayChart extends React.Component {
     });
   }
 
+  /**
+   * 重置图表并应用新数组
+   *
+   * @param newData 新数组
+   */
   reset(newData) {
     this.state.svg.remove();
 
@@ -119,8 +154,13 @@ export default class ArrayChart extends React.Component {
     );
   }
 
-  // 设置指示器位置
-  // still need to be refactored
+  /**
+   * 设置指示器位置
+   *
+   * @param i i 的位置
+   * @param j j 的位置
+   * @param callback 将 i, j 传入部件 State 后所执行的操作
+   */
   setIndicator(i, j, callback = dummy) {
     if (i >= this.state.data.length || i < -1) {
       return;
@@ -170,7 +210,13 @@ export default class ArrayChart extends React.Component {
     );
   }
 
-  // 标记选定索引
+  /**
+   * 设置标记指示器的位置
+   * j 遍历完成后该标记的位置的数值将于 i 交换
+   *
+   * @param index 位置
+   * @param callback 将 tagged 传入部件 State 后所执行的操作
+   */
   tagIndicator(index, callback = dummy) {
     if (isNaN(index) || index >= this.state.data.length || index < -1) {
       return;
@@ -216,6 +262,9 @@ export default class ArrayChart extends React.Component {
     );
   }
 
+  /**
+   * 渲染部件
+   */
   render() {
     return (
       <>

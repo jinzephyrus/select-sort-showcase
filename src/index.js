@@ -1,3 +1,9 @@
+/**
+ * 选择排序算法演示
+ *
+ * by: Shahrazad (and 3 more collaborators)
+ */
+
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";

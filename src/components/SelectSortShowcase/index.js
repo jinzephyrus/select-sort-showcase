@@ -9,6 +9,10 @@ import { SnackbarProvider } from "notistack";
 import { Box } from "@mui/system";
 import Header from "../Header";
 
+/**
+ * 网页窗体大小 Hook
+ * Credit: https://usehooks.com/useWindowSize/
+ */
 const useWindowSize = () => {
   const [size, setSize] = useState({
     width: 0,
@@ -32,6 +36,9 @@ const useWindowSize = () => {
   return size;
 };
 
+/**
+ * @returns 应用主部件
+ */
 export const SelectSortShowcase = () => {
   const textDisplay = useRef();
   const arrayChart = useRef();
@@ -40,6 +47,7 @@ export const SelectSortShowcase = () => {
   const window = useWindowSize();
   const cardSize = 1080;
 
+  // 应用数组
   const applyData = (nums) => {
     if (!playerControl.current.state.paused) {
       playerControl.current.onPlayButtonClick();
@@ -48,8 +56,10 @@ export const SelectSortShowcase = () => {
     playerControl.current.reset(nums);
   };
 
+  // 通过侦测窗体大小来适配各平台
   const isVerticalScreen = () => window.width <= cardSize;
 
+  // 正常情况下提供竖分隔符，宽度不够或竖屏状态下提供横分隔符
   const getDivider = () => {
     if (!isVerticalScreen()) {
       return <Divider orientation='vertical' flexItem />;
@@ -84,8 +94,6 @@ export const SelectSortShowcase = () => {
               sx={{
                 mr: !isVerticalScreen() ? "16px" : "0",
                 mt: "16px",
-                // pl: !isVerticalScreen ? "0" : "16px",
-                // pr: !isVerticalScreen ? "0" : "16px",
               }}
             >
               <Box sx={{ p: 1 }}>

@@ -4,8 +4,14 @@ import React, { Component } from "react";
 import { resolveSelectSort } from "../../core/resolveSelectSort";
 import { breakpoint } from "../TextDisplay/shared";
 
+/**
+ * 空函数
+ */
 const dummy = () => null;
 
+/**
+ * 播放控制部件
+ */
 export default class PlayerControl extends Component {
   constructor(props) {
     super(props);
@@ -20,6 +26,9 @@ export default class PlayerControl extends Component {
     };
   }
 
+  /**
+   * 解析算法步骤并初始化数组图表
+   */
   initializeAlgorithmSteps() {
     const steps = resolveSelectSort(this.state.originalArray);
 
@@ -29,6 +38,11 @@ export default class PlayerControl extends Component {
     });
   }
 
+  /**
+   * 重置所有部件并应用新数组
+   *
+   * @param newData 新数组
+   */
   reset(newData) {
     this.setState(
       {
@@ -49,6 +63,7 @@ export default class PlayerControl extends Component {
   }
 
   updateComponents() {
+    // 通过解析选择排序得到的 JSON 对象更新所有部件
     const step = this.state.steps[this.state.currentStep];
 
     this.state.arrayChart.current.setIndicator(step.iIndex, step.jIndex, () => {
@@ -75,6 +90,12 @@ export default class PlayerControl extends Component {
     }
   }
 
+  /**
+   * 移到特定步动画演示
+   *
+   * @param step 步骤
+   * @param callback 完成该方法后要调用的函数
+   */
   toStep(step, callback = dummy) {
     if (step < 0 || step > this.state.steps.length - 1) {
       return;
@@ -91,14 +112,27 @@ export default class PlayerControl extends Component {
     );
   }
 
+  /**
+   * 移到下一步动画演示
+   *
+   * @param callback 完成该方法后要调用的函数
+   */
   nextStep(callback = dummy) {
     this.toStep(this.state.currentStep + 1, callback);
   }
 
+  /**
+   * 移到上一步动画演示
+   *
+   * @param callback 完成该方法后要调用的函数
+   */
   prevStep(callback = dummy) {
     this.toStep(this.state.currentStep - 1, callback);
   }
 
+  /**
+   * 开始连续播放动画演示
+   */
   play() {
     this.playTimer = setInterval(() => {
       this.nextStep(() => {
@@ -109,10 +143,18 @@ export default class PlayerControl extends Component {
     }, 400);
   }
 
+  /**
+   * 暂停动画演示
+   */
   pause() {
     clearInterval(this.playTimer);
   }
 
+  /**
+   * 按下播放按钮时的操作
+   *
+   * @param stopOnEnd 是否播完暂停
+   */
   onPlayButtonClick(stopOnEnd = false) {
     if (!stopOnEnd && this.state.currentStep >= this.state.steps.length - 1) {
       this.setState(
@@ -139,6 +181,12 @@ export default class PlayerControl extends Component {
     });
   }
 
+  /**
+   * 拨动进度条时所需的操作
+   *
+   * @param _ 不采用
+   * @param newValue 步骤
+   */
   onStepChanging(_, newValue) {
     if (!this.state.paused) {
       this.onPlayButtonClick();
@@ -147,6 +195,9 @@ export default class PlayerControl extends Component {
     this.toStep(newValue);
   }
 
+  /**
+   * 渲染部件
+   */
   render() {
     return (
       <Stack

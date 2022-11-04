@@ -38,7 +38,7 @@ const onChange = (newValue) => {
   console.log("change", newValue);
 };
 
-class TextDisplay extends Component {
+export default class TextDisplay extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -81,5 +81,3 @@ class TextDisplay extends Component {
     );
   }
 }
-
-export default TextDisplay;

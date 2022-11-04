@@ -4,6 +4,7 @@ import { useSnackbar } from "notistack";
 import { alpha } from "@mui/system";
 import { List, Queue } from "@mui/icons-material";
 
+// 搜索框样式
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
@@ -11,7 +12,6 @@ const Search = styled("div")(({ theme }) => ({
   "&:hover": {
     backgroundColor: alpha(theme.palette.common.white, 0.25),
   },
-  //   marginRight: theme.spacing(2),
   marginLeft: 0,
   width: "100%",
   [theme.breakpoints.up("sm")]: {
@@ -44,9 +44,14 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
+/**
+ * @param props DOM 标签属性
+ * @returns 标题部件
+ */
 const Header = (props) => {
   const { enqueueSnackbar } = useSnackbar();
 
+  // 检查并转换字符串至数组
   const applyData = (str) => {
     if (!props.apply) {
       enqueueSnackbar("未定义 apply 方法.", {
@@ -57,6 +62,14 @@ const Header = (props) => {
     }
 
     const array = str.split(",");
+
+    if (array.length <= 2) {
+      enqueueSnackbar("该数组元素过少.", {
+        variant: "error",
+      });
+
+      return;
+    }
 
     const nums =
       str.length === 0
@@ -71,17 +84,10 @@ const Header = (props) => {
             return num;
           });
 
-    if (nums.length <= 2) {
-      enqueueSnackbar("该数组元素过少.", {
-        variant: "error",
-      });
-
-      return;
-    }
-
     props.apply(nums);
   };
 
+  // 回车后将字符串转换为数组
   const keyDown = (e) => {
     if (e.key !== "Enter") {
       return;
